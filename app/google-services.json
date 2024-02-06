@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550675276440",
+    "project_id": "kidoogle",
+    "storage_bucket": "kidoogle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550675276440:android:ee8a8dfa9a73b73e4b66ed",
+        "android_client_info": {
+          "package_name": "com.nirv.proj1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_x0nMb_mzCjbeOaiNo4WNE-jWZXB-DQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
