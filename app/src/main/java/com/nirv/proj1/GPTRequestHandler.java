@@ -37,13 +37,13 @@ public class GPTRequestHandler {
     }
 
     // Method to send GPT request using the retrieved API key
-    public static void sendGPTRequest(String text, final GPTResponseListener listener) throws JSONException {
+    public static void sendGPTRequest(String speech, final GPTResponseListener listener) throws JSONException {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("text", text);
+        jsonObject.addProperty("text", speech);
         String jsonText = gson.toJson(jsonObject);
-        API_KEY = "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";
+        API_KEY = "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";
 
         MediaType mediaType = MediaType.parse("application/json");
         JSONObject requestBody = new JSONObject();
@@ -58,14 +58,14 @@ public class GPTRequestHandler {
 
         JSONObject userMessage = new JSONObject();
         userMessage.put("role", "user");
-        userMessage.put("content", "Hello!");
+        userMessage.put("content", speech); // Set the content to the recognized speech
         messagesArray.put(userMessage);
 
         requestBody.put("messages", messagesArray);
 
         requestBody.put("max_tokens", 500);
         requestBody.put("temperature", 0);
-       
+
         String jsonBody = requestBody.toString();
 
         RequestBody body = RequestBody.create(mediaType, jsonBody);
@@ -83,14 +83,49 @@ public class GPTRequestHandler {
                 listener.onError("Request failed: " + e.getMessage());
             }
 
-
-            @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseBody = response.body().string();
+
+                // Parse the JSON response
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(responseBody);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                // Extract the message from the JSON object
+                JSONArray choices = null;
+                try {
+                    choices = jsonObject.getJSONArray("choices");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                JSONObject choice = null; // Assuming there's only one choice
+                try {
+                    choice = choices.getJSONObject(0);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                JSONObject message = null;
+                try {
+                    message = choice.getJSONObject("message");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                String responseMessage = null;
+                try {
+                    responseMessage = message.getString("content");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                // Post the response message to the main thread
+                String finalResponseMessage = responseMessage;
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        listener.onResponse(responseBody);
+                        listener.onResponse(finalResponseMessage);
                     }
                 });
             }
