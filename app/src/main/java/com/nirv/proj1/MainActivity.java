@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -82,7 +84,11 @@ public class MainActivity extends AppCompatActivity {
                 greetingTextView.setText(conversationBuilder.toString());
 
                 // Send the recognized speech to the GPT API
-                sendSpeechToGPT(recognizedSpeech);
+                try {
+                    sendSpeechToGPT(recognizedSpeech);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void sendSpeechToGPT(String speech) {
+    private void sendSpeechToGPT(String speech) throws JSONException {
         // Create an instance of GPTRequestHandler
         GPTRequestHandler gptRequestHandler = new GPTRequestHandler();
 

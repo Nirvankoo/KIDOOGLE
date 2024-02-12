@@ -1,16 +1,20 @@
 package com.nirv.proj1;
 
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import android.os.Handler;
+import android.os.Looper;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -29,40 +33,42 @@ public class GPTRequestHandler {
 
     // Method to retrieve API key from Firebase
     private void retrieveApiKeyFromFirebase() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference apiKeyRef = database.getReference("apiKeys/openai/apiKey");
-
-        apiKeyRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                API_KEY = dataSnapshot.getValue(String.class);
-                // API key retrieved from Firebase
-                if (API_KEY != null) {
-                    System.out.println("API Key retrieved successfully: " + API_KEY);
-                } else {
-                    System.err.println("Failed to retrieve API Key from Firebase.");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle error
-                System.err.println("Firebase database error: " + databaseError.getMessage());
-            }
-        });
+        // Your implementation to retrieve API key from Firebase
     }
 
     // Method to send GPT request using the retrieved API key
-    public static void sendGPTRequest(String text, final GPTResponseListener listener) {
+    public static void sendGPTRequest(String text, final GPTResponseListener listener) throws JSONException {
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("text", text);
         String jsonText = gson.toJson(jsonObject);
-        API_KEY = "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";
+        API_KEY = "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";
 
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, jsonText);
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("model", "gpt-3.5-turbo");
+
+        JSONArray messagesArray = new JSONArray();
+
+        JSONObject systemMessage = new JSONObject();
+        systemMessage.put("role", "system");
+        systemMessage.put("content", "You are a helpful assistant.");
+        messagesArray.put(systemMessage);
+
+        JSONObject userMessage = new JSONObject();
+        userMessage.put("role", "user");
+        userMessage.put("content", "Hello!");
+        messagesArray.put(userMessage);
+
+        requestBody.put("messages", messagesArray);
+
+        requestBody.put("max_tokens", 500);
+        requestBody.put("temperature", 0);
+       
+        String jsonBody = requestBody.toString();
+
+        RequestBody body = RequestBody.create(mediaType, jsonBody);
         Request request = new Request.Builder()
                 .url(GPT_API_URL)
                 .post(body)
@@ -70,21 +76,23 @@ public class GPTRequestHandler {
                 .addHeader("Content-Type", "application/json")
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
+            public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 listener.onError("Request failed: " + e.getMessage());
             }
 
+
             @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) {
-                    listener.onError("Unexpected response code: " + response.code());
-                    return;
-                }
-                String responseBody = response.body().string();
-                listener.onResponse(responseBody);
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseBody = response.body().string();
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onResponse(responseBody);
+                    }
+                });
             }
         });
     }
