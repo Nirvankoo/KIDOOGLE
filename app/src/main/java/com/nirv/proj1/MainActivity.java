@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView greetingTextView = findViewById(R.id.welcome_text);
 
                 // Append the recognized speech to the conversation
-                conversationBuilder.append(recognizedSpeech).append("\n");
-                greetingTextView.setText(conversationBuilder.toString());
+                greetingTextView.setText(recognizedSpeech);
+                greetingTextView.setText("Ask next question plz");
 
                 // Send the recognized speech to the GPT API
                 try {
@@ -136,5 +136,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }
