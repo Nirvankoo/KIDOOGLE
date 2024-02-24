@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Do you want to play the response?"
         android:textSize="18sp"
+        android:fontFamily="@font/cheflat"
         android:layout_gravity="center"
         android:textColor="@android:color/black" />
 
@@ -27,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Yes"
+            android:fontFamily="@font/cheflat"
             style="?android:attr/buttonBarButtonStyle" />
 
         <Button
@@ -35,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="No"
+            android:fontFamily="@font/cheflat"
             style="?android:attr/buttonBarButtonStyle" />
 
 

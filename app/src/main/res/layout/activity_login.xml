@@ -7,7 +7,7 @@
     tools:context=".LoginActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/bg2">
+    android:background="@drawable/new_bg">
 
 
     <androidx.cardview.widget.CardView
@@ -23,12 +23,13 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:padding="24dp"
-            android:background="@drawable/bg3">
+            android:background="@drawable/new_bg">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login"
+                android:fontFamily="@font/cheflat"
                 android:textSize="36sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -45,7 +46,8 @@
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/cheflat"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -59,7 +61,8 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/cheflat"/>
 
             <Button
                 tools:ignore="InvalidId"
@@ -70,7 +73,8 @@
                 android:textSize="18dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/purple_700"
-                app:cornerRadius = "20dp"/>
+                app:cornerRadius = "20dp"
+                android:fontFamily="@font/cheflat"/>
 
             <com.google.android.gms.common.SignInButton
                 android:layout_width="wrap_content"
@@ -85,12 +89,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/signup_redirect_text"
-                android:text="Not yey registered? Sign Up"
+                android:text="Not yet registered? Sign Up"
                 android:layout_gravity="center"
                 android:padding="8dp"
                 android:layout_marginTop="18sp"
                 android:textColor="@color/purple_700"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:fontFamily="@font/cheflat"/>
 
 
 

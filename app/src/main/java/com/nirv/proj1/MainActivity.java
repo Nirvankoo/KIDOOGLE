@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,8 +38,16 @@ public class MainActivity extends AppCompatActivity {
     private static final int RECORD_AUDIO_PERMISSION_CODE = 1;
     private StringBuilder conversationBuilder = new StringBuilder(); // to store conversation history
     private TextView confirm_question;
+    private boolean confirm_question_flag = false;
+
     private Button conf_button_yes;
+    private boolean conf_button_yes_falg = false;
+
     private Button conf_button_no;
+    private boolean conf_button_no_flag;
+
+    private boolean voice_button_flag;
+
     private TextView answer;
     private TextToSpeechManager textToSpeechManager;
     private AlertDialog loadingDialog;
@@ -113,10 +122,26 @@ public class MainActivity extends AppCompatActivity {
 
         // Step 3: Display button with voice API functionality
         Button voiceButton = findViewById(R.id.circularButton);
+
         voiceButton.setVisibility(View.VISIBLE); // Make button visible
         voiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //double-click secure
+                if(!voice_button_flag){
+                    voice_button_flag = true;
+                    voiceButton.setEnabled(false);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Re-enable the button
+                        voiceButton.setEnabled(true);
+                        voice_button_flag = false;
+                    }
+                }, 1000); // 1000 milliseconds = 1 second
+
+
                 // Check and request microphone permission
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_PERMISSION_CODE);

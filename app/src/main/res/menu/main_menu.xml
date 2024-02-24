@@ -5,12 +5,13 @@
 
     <item
         android:id="@+id/main_menu"
-        android:title="Menu"
+        android:title=""
         app:showAsAction="ifRoom"
         app:itemTextAppearance="@style/MyMenuItemStyle"/>
     <item
         android:id="@+id/main_menu_log_out"
         android:title="Log Out"
         app:showAsAction="never"
+        android:fontFamily="@font/cheflat"
         app:itemTextAppearance="@style/MyMenuItemStyle"/>
 </menu>
