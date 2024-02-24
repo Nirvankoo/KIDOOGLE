@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +40,13 @@ public class SignUpActivity extends AppCompatActivity {
     // Google auth
     private static final int RC_SIGN_IN = 9001;
     GoogleApiClient mGoogleApiClient;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +149,8 @@ public class SignUpActivity extends AppCompatActivity {
             GoogleSignInAccount account = result.getSignInAccount();
             Toast.makeText(this, "Google Sign-In successful: " + account.getDisplayName(), Toast.LENGTH_SHORT).show();
             // Proceed with your desired logic, such as signing in the user with Firebase or navigating to another activity
+            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+            finish();
         } else {
             // Google sign-in failed, handle it accordingly
             Toast.makeText(this, "Google Sign-In failed. Please try again.", Toast.LENGTH_SHORT).show();

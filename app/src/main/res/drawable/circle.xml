@@ -1,4 +1,19 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="#2196F3"/>
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer ring shape -->
+    <item>
+        <shape
+            android:shape="ring"
+            android:innerRadiusRatio="3"
+            android:thicknessRatio="40"
+            android:useLevel="false">
+            <solid android:color="?android:attr/colorEdgeEffect" />
+        </shape>
+    </item>
+
+    <!-- Inner circle shape (transparent) -->
+    <item android:top="12dp" android:left="12dp" android:right="12dp" android:bottom="12dp">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>

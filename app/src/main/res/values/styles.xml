@@ -1,0 +1,10 @@
+<resources>
+    <style name="MyMenuItemStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textSize">11sp</item> <!-- Change text size as desired -->
+        <!-- Add other attributes you want to modify -->
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="background">@drawable/baseline_mic_24</item>
+    </style>
+</resources>

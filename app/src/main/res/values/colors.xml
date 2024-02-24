@@ -7,4 +7,22 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="yellow">#FFFFFF00</color> <!-- Yellow -->
+    <color name="orange">#FFFFA500</color> <!-- Orange -->
+    <color name="pink">#FFFFC0CB</color> <!-- Pink -->
+    <color name="cyan">#FF00FFFF</color> <!-- Cyan -->
+    <color name="magenta">#FFFF00FF</color> <!-- Magenta -->
+
+    <!-- Different shades or variations -->
+    <color name="red_light">#FFFFCDD2</color> <!-- Light Red -->
+    <color name="blue_dark">#FF00008B</color> <!-- Dark Blue -->
+    <color name="green_light">#FF7CFC00</color> <!-- Light Green -->
+    <color name="yellow_dark">#FFBDB76B</color> <!-- Dark Yellow -->
+    <color name="orange_light">#FFFFE4B5</color> <!-- Light Orange -->
+    <color name="pink_dark">#FFC71585</color> <!-- Dark Pink -->
+    <color name="cyan_light">#FFE0FFFF</color> <!-- Light Cyan -->
+    <color name="magenta_dark">#FF8B008B</color> <!-- Dark Magenta -->
+    <color name="purple">#B509E1</color>
+    <color name="blue_1">#15215D</color>"
 </resources>

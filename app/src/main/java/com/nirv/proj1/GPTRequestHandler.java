@@ -91,7 +91,7 @@ public class GPTRequestHandler {
 
         JSONObject systemMessage = new JSONObject();
         systemMessage.put("role", "system");
-        systemMessage.put("content", "You are a helpful assistant.");
+        systemMessage.put("content", "You explaining to kids");
         messagesArray.put(systemMessage);
 
         JSONObject userMessage = new JSONObject();
@@ -122,8 +122,8 @@ public class GPTRequestHandler {
 
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseBody = response.body().string();
-                Log.d("Request Body", String.valueOf(request));// Print the request body to Logcat
-                Log.d("JSON Response", responseBody);
+                //Log.d("Request Body", String.valueOf(request));// Print the request body to Logcat
+                //Log.d("JSON Response", responseBody);
 
                 // Post UI updates to the main thread
                 new Handler(Looper.getMainLooper()).post(new Runnable() {

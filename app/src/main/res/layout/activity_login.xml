@@ -7,7 +7,7 @@
     tools:context=".LoginActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/bg">
+    android:background="@drawable/bg2">
 
 
     <androidx.cardview.widget.CardView
@@ -23,7 +23,7 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:padding="24dp"
-            android:background="@drawable/custom_edittext">
+            android:background="@drawable/bg3">
 
             <TextView
                 android:layout_width="match_parent"
@@ -44,7 +44,8 @@
                 android:hint="Email"
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -54,9 +55,11 @@
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"/>
 
             <Button
                 tools:ignore="InvalidId"
@@ -75,7 +78,8 @@
                 android:id="@+id/google_sign_in_button"
                 android:textAlignment="center"
                 android:layout_marginTop="18dp"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
