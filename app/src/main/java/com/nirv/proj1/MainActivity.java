@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean confirm_question_flag = false;
 
     private Button conf_button_yes;
-    private boolean conf_button_yes_falg = false;
+    private boolean conf_button_yes_flag = false;
 
     private Button conf_button_no;
     private boolean conf_button_no_flag;
@@ -51,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView answer;
     private TextToSpeechManager textToSpeechManager;
     private AlertDialog loadingDialog;
+
+    private boolean yesButton_flag = false;
+    private boolean noButton_flag = false;
+    private boolean stopSpeachButton_flag = false;
+    private boolean next_qestion_yes_flag = false;
+    private boolean next_qestion_no_flag = false;
 
 
 
@@ -170,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 imageView.startAnimation(animation);
             }
 
-            ;
+
 
         });
 
@@ -178,6 +184,19 @@ public class MainActivity extends AppCompatActivity {
         conf_button_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!conf_button_yes_flag){
+                    conf_button_yes_flag = true;
+                    conf_button_yes.setEnabled(false);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Re-enable the button
+                        conf_button_yes.setEnabled(true);
+                        conf_button_yes_flag = false;
+                    }
+                }, 1000); // 1000 milliseconds = 1 second
+
                 // Handle "Yes" button click
                 sendRequestToGPT();
             }
@@ -186,6 +205,20 @@ public class MainActivity extends AppCompatActivity {
         conf_button_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!conf_button_no_flag){
+                    conf_button_no_flag = true;
+                    conf_button_no.setEnabled(false);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Re-enable the button
+                        conf_button_no.setEnabled(true);
+                        conf_button_no_flag = false;
+                    }
+                }, 1000); // 1000 milliseconds = 1 second
+
                 // Handle "No" button click by invoking voice recognition again
                 invokeVoiceAPI();
             }
@@ -204,6 +237,8 @@ public class MainActivity extends AppCompatActivity {
         Button noButton = dialogView.findViewById(R.id.no_button_dialog);
 
 
+
+
         builder.setView(dialogView);
 
         AlertDialog dialog = builder.create();
@@ -212,6 +247,20 @@ public class MainActivity extends AppCompatActivity {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!yesButton_flag){
+                    yesButton_flag = true;
+                    yesButton.setEnabled(false);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Re-enable the button
+                        yesButton.setEnabled(true);
+                        yesButton_flag = false;
+                    }
+                }, 1000); // 1000
+
                 // Play the response using the TextToSpeechManager
                 TextView stop_button = findViewById(R.id.stop_button_dialog);
                 stop_button.setVisibility(View.VISIBLE);
@@ -225,6 +274,20 @@ public class MainActivity extends AppCompatActivity {
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!noButton_flag){
+                    noButton_flag = true;
+                    noButton.setEnabled(false);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Re-enable the button
+                        noButton.setEnabled(true);
+                        noButton_flag = false;
+                    }
+                }, 1000); // 1000
+
                 // Do not play the response
                 dialog.dismiss();
                 Button voiceButton;
@@ -239,6 +302,19 @@ public class MainActivity extends AppCompatActivity {
         stopSpeachButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!stopSpeachButton_flag){
+                    stopSpeachButton_flag = true;
+                    stopSpeachButton.setEnabled(false);
+                }
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Re-enable the button
+                       stopSpeachButton.setEnabled(true);
+                        stopSpeachButton_flag = false;
+                    }
+                }, 1000); // 1000
+
                 textToSpeechManager.stop();
                 dialog.dismiss();
                 answer.setText("");
@@ -264,8 +340,23 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
 
                 yesButton.setOnClickListener(new View.OnClickListener() {
+
+
                     @Override
                     public void onClick(View v) {
+                        if(!next_qestion_yes_flag){
+                            next_qestion_yes_flag = true;
+                            yesButton.setEnabled(false);
+                        }
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Re-enable the button
+                                yesButton.setEnabled(true);
+                                next_qestion_yes_flag = false;
+                            }
+                        }, 1000); // 1000
+
                         dialog.dismiss();
                         invokeVoiceAPI();
                     }
@@ -274,6 +365,19 @@ public class MainActivity extends AppCompatActivity {
                 noButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        if(!next_qestion_no_flag){
+                            next_qestion_no_flag = true;
+                            noButton.setEnabled(false);
+                        }
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Re-enable the button
+                                noButton.setEnabled(true);
+                                next_qestion_no_flag = false;
+                            }
+                        }, 1000); // 1000
                         dialog.dismiss();
                         Button voiceButton = findViewById(R.id.circularButton);
                         voiceButton.setVisibility(View.VISIBLE);

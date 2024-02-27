@@ -34,6 +34,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextView signupRedirectText;
     private Button loginButton;
 
+
+
+
     //google auth
     GoogleApiClient mGoogleApiClient;
     private static final String TAG = "SignInActivity";
@@ -67,6 +70,12 @@ public class LoginActivity extends AppCompatActivity {
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        //get credentials
+
+
+
+
 
         signInButtonGoogle = findViewById(R.id.google_sign_in_button);
         signInButtonGoogle.setOnClickListener(new View.OnClickListener() {

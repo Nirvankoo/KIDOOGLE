@@ -26,10 +26,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
 public class GPTRequestHandler {
 
     private static final String GPT_API_URL = "https://api.openai.com/v1/chat/completions";
     private static String API_KEY = null;
+
+    private static RequestCount requestCount = new RequestCount();
 
     // Constructor to retrieve API key from Firebase Realtime Database
     public GPTRequestHandler() {
@@ -77,6 +80,10 @@ public class GPTRequestHandler {
 
     // Method to send GPT request using the retrieved API key
     public static void sendGPTRequest(String speech, final GPTResponseListener listener) throws JSONException {
+
+        requestCount.incrementRequestCount();
+
+
         OkHttpClient client = new OkHttpClient();
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
@@ -154,7 +161,13 @@ public class GPTRequestHandler {
             }
 
         });
+
+
     }
+
+
+
+
 
     // Interface for response callbacks
     public interface GPTResponseListener {
